@@ -19,7 +19,6 @@ PetSafe es una aplicación web para el reporte y consulta de mascotas extraviada
 - [Instalación y ejecución local](#instalación-y-ejecución-local)
 - [Uso del sistema](#uso-del-sistema)
 - [Estado actual del proyecto](#estado-actual-del-proyecto)
-- [Repositorio y documentación](#repositorio-y-documentación)
 - [Autores](#autores)
 
 ---
@@ -516,15 +515,6 @@ Actualmente, PetSafe cuenta con:
 - validaciones y mensajes visibles en español
 - apertura fácil en Windows mediante archivo `.bat`
 
----
-
-## Repositorio y documentación
-
-Este repositorio funciona como parte de la documentación del código fuente del proyecto, permitiendo:
-- registrar avances
-- compartir el desarrollo con integrantes del equipo
-- mantener una referencia técnica del sistema
-- incluir el enlace del repositorio en el reporte técnico y la presentación
 
 ---
 
