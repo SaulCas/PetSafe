@@ -1,0 +1,46 @@
+<svg width="720" height="240" viewBox="0 0 720 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="240" rx="32" fill="#FFFDF8"/>
+  <ellipse cx="226" cy="184" rx="120" ry="15" fill="#EFE4D7"/>
+
+  <!-- Perrito -->
+  <path d="M128 98C128 70.938 149.938 49 177 49H211C246.346 49 275 77.6538 275 113V154C275 175.539 257.539 193 236 193H173C148.147 193 128 172.853 128 148V98Z" fill="#FFE0A5"/>
+  <path d="M144 96C144 76.1177 160.118 60 180 60H181C203.644 60 222 78.3563 222 101V123C222 143.435 205.435 160 185 160H180C160.118 160 144 143.882 144 124V96Z" fill="#FFF5DE"/>
+  <path d="M160 76C147.163 60.4078 124.502 57.8907 108.56 70.2268C92.6192 82.563 89.4322 104.611 101.5 118C113.568 131.389 136.197 132.69 151 120L160 76Z" fill="#C88A53"/>
+  <path d="M242 69C255.63 54.8342 276.049 52.2484 289.5 63C302.951 73.7516 304.415 94.2257 292.5 107L270 116L242 69Z" fill="#B87546"/>
+  <circle cx="188" cy="113" r="8.5" fill="#4E3328"/>
+  <circle cx="235" cy="113" r="8.5" fill="#4E3328"/>
+  <ellipse cx="211.5" cy="128" rx="10" ry="7.5" fill="#734B39"/>
+  <path d="M202 140C206.667 145.333 215.333 145.333 220 140" stroke="#4E3328" stroke-width="5.8" stroke-linecap="round"/>
+  <path d="M174 148C186 154 197 154 208 150" stroke="#4E3328" stroke-width="5.8" stroke-linecap="round"/>
+  <path d="M177 169V190" stroke="#4E3328" stroke-width="6" stroke-linecap="round"/>
+  <path d="M202 169V190" stroke="#4E3328" stroke-width="6" stroke-linecap="round"/>
+  <path d="M228 169V190" stroke="#4E3328" stroke-width="6" stroke-linecap="round"/>
+  <path d="M168 177C160 186 146 187 136 180C128 174 126 162 133 154" stroke="#4E3328" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Gatito -->
+  <path d="M257 96C257 71.1472 277.147 51 302 51H331C366.899 51 396 80.1015 396 116V152C396 174.644 377.644 193 355 193H302C277.147 193 257 172.853 257 148V96Z" fill="#FFF0CF"/>
+  <path d="M283 78L297 53L316 77" fill="#FFC978" stroke="#4E3328" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M339 77L360 52L372 82" fill="#FFC978" stroke="#4E3328" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M283 95C283 75.67 298.67 60 318 60H321C342.539 60 360 77.4609 360 99V119C360 138.33 344.33 154 325 154H318C298.67 154 283 138.33 283 119V95Z" fill="#FFF8E8"/>
+  <path d="M321 62C337 68 345 79 345 94C345 118 330 132 308 134C293 135 286 123 286 104C286 77 298 62 321 62Z" fill="#FFD27C"/>
+  <path d="M357 65C374 67 386 79 387 95C388 111 382 123 371 128C361 132 352 123 352 105C352 88 351 74 357 65Z" fill="#FFD07A"/>
+  <path d="M294 110C294 110 298 118 304 118C311 118 315 110 315 110" stroke="#4E3328" stroke-width="5.4" stroke-linecap="round"/>
+  <path d="M328 110C328 110 332 118 339 118C346 118 350 110 350 110" stroke="#4E3328" stroke-width="5.4" stroke-linecap="round"/>
+  <path d="M308 123C313 129 321 129 326 123" stroke="#4E3328" stroke-width="5.8" stroke-linecap="round"/>
+  <path d="M286 126L272 122" stroke="#4E3328" stroke-width="4.2" stroke-linecap="round"/>
+  <path d="M287 134L269 134" stroke="#4E3328" stroke-width="4.2" stroke-linecap="round"/>
+  <path d="M349 126L363 122" stroke="#4E3328" stroke-width="4.2" stroke-linecap="round"/>
+  <path d="M349 134L367 134" stroke="#4E3328" stroke-width="4.2" stroke-linecap="round"/>
+  <path d="M303 169V190" stroke="#4E3328" stroke-width="6" stroke-linecap="round"/>
+  <path d="M328 169V190" stroke="#4E3328" stroke-width="6" stroke-linecap="round"/>
+  <path d="M352 169V190" stroke="#4E3328" stroke-width="6" stroke-linecap="round"/>
+  <path d="M386 154C396 160 399 173 395 183C391 192 382 196 372 192C381 186 386 176 386 154Z" stroke="#4E3328" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Texto -->
+  <text x="430" y="148" font-family="Nunito, Arial, sans-serif" font-size="84" font-weight="800" letter-spacing="-2">
+    <tspan fill="#5AA0DA">Pet</tspan><tspan fill="#8BBF3F">Safe</tspan>
+  </text>
+  <text x="432" y="178" font-family="Nunito, Arial, sans-serif" font-size="18" font-weight="700" fill="#9C8A78">
+    Encuentra y protege a tu mascota
+  </text>
+</svg>

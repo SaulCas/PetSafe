@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Iniciar sesión | PetSafe{% endblock %}
+
+{% block contenido %}
+<section class="auth-layout">
+    <article class="tarjeta-auth">
+        <span class="etiqueta-pantalla">Acceso</span>
+        <h1>Bienvenido a PetSafe</h1>
+        <p class="subtitulo-auth">
+            Inicia sesión para ver el mapa, publicar reportes y revisar tus mensajes.
+        </p>
+
+        <form method="POST" class="formulario-auth">
+            <label for="correo">Correo electrónico</label>
+            <input id="correo" name="correo" type="email" placeholder="ejemplo@correo.com" required>
+
+            <label for="password">Contraseña</label>
+            <input id="password" name="password" type="password" placeholder="Mínimo 6 caracteres" required>
+
+            <button type="submit" class="boton-principal boton-ancho">Iniciar sesión</button>
+        </form>
+
+        <p class="texto-centro texto-suave">
+            ¿Aún no tienes cuenta?
+            <a href="{{ url_for('registro') }}">Regístrate aquí</a>
+        </p>
+    </article>
+</section>
+{% endblock %}

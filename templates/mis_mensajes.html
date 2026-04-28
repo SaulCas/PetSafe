@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Mis mensajes | PetSafe{% endblock %}
+
+{% block contenido %}
+<section class="contenedor-simple">
+    <article class="tarjeta-panel">
+        <span class="etiqueta-pantalla">Mensajería</span>
+        <h1>Mis mensajes</h1>
+        <p class="subtitulo-panel">
+            Aquí puedes ver las conversaciones relacionadas con tus reportes o con reportes que decidiste contactar.
+        </p>
+    </article>
+
+    <article class="tarjeta-panel">
+        {% if conversaciones %}
+            <div class="lista-conversaciones">
+                {% for conversacion in conversaciones %}
+                    <a class="item-conversacion" href="{{ conversacion.url }}">
+                        <strong>{{ conversacion.nombre_mascota }}</strong>
+                        <span>Con: {{ conversacion.otra_persona }}</span>
+                        <span>Estado del reporte: {{ conversacion.estado }}</span>
+                        <span>Último mensaje: {{ conversacion.ultimo_mensaje }}</span>
+                        <span>{{ conversacion.fecha }}</span>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="mensaje-suave">Todavía no tienes conversaciones.</p>
+        {% endif %}
+    </article>
+</section>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}Mapa principal | PetSafe{% endblock %}
+
+{% block contenido %}
+<section class="panel-principal">
+    <aside class="panel-lateral">
+        <div class="tarjeta-panel">
+            <span class="etiqueta-pantalla">Mapa</span>
+            <h1>Reportes activos</h1>
+            <p class="subtitulo-panel">
+                Haz clic en el mapa para elegir la última ubicación de la mascota y completar el reporte.
+            </p>
+            <button id="boton-ubicacion" type="button" class="boton-secundario boton-ancho">Usar mi ubicación</button>
+            <p id="mensaje-ubicacion" class="mensaje-suave"></p>
+        </div>
+
+        <div class="tarjeta-panel">
+            <span class="etiqueta-pantalla">Búsqueda</span>
+            <h2>Filtros</h2>
+            <form id="formulario-filtros" class="formulario-panel">
+                <label for="filtro-tipo">Tipo de mascota</label>
+                <select id="filtro-tipo" name="tipo">
+                    <option value="">Todos</option>
+                    {% for tipo in tipos %}
+                        <option value="{{ tipo }}">{{ tipo|capitalize }}</option>
+                    {% endfor %}
+                </select>
+
+                <fieldset class="grupo-campos">
+                    <legend>Colores</legend>
+                    <div class="grupo-checks">
+                        {% for color in colores %}
+                            <label class="check-item">
+                                <input type="checkbox" name="colores" value="{{ color }}">
+                                <span>{{ colores_visibles[color] }}</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                </fieldset>
+
+                <button type="submit" class="boton-secundario boton-ancho">Aplicar filtros</button>
+            </form>
+            <p id="mensaje-filtros" class="mensaje-suave"></p>
+        </div>
+
+        <div class="tarjeta-panel">
+            <span class="etiqueta-pantalla">Nuevo reporte</span>
+            <h2>Publicar mascota extraviada</h2>
+            <p class="subtitulo-panel">
+                Completa los datos con calma. Si tienes foto, ayudará a identificarla más rápido.
+            </p>
+
+            <form id="formulario-reporte" class="formulario-panel" enctype="multipart/form-data">
+                <input id="latitud" type="hidden" name="latitud">
+                <input id="longitud" type="hidden" name="longitud">
+
+                <div class="grupo-campos">
+                    <label for="nombre_mascota">Nombre de la mascota</label>
+                    <input id="nombre_mascota" name="nombre_mascota" type="text" placeholder="Ejemplo: Luna" required>
+                </div>
+
+                <div class="grupo-doble">
+                    <div class="grupo-campos">
+                        <label for="edad_mascota">Edad de la mascota</label>
+                        <input id="edad_mascota" name="edad_mascota" type="text" placeholder="Ejemplo: 3 años" required>
+                    </div>
+
+                    <div class="grupo-campos">
+                        <label for="tipo_mascota">Tipo de mascota</label>
+                        <select id="tipo_mascota" name="tipo_mascota" required>
+                            <option value="">Selecciona una opción</option>
+                            {% for tipo in tipos %}
+                                <option value="{{ tipo }}">{{ tipo|capitalize }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div id="contenedor-otro-tipo" class="oculto grupo-campos">
+                    <label for="otro_tipo_mascota">Especifica el tipo</label>
+                    <input id="otro_tipo_mascota" name="otro_tipo_mascota" type="text" placeholder="Ejemplo: conejo">
+                </div>
+
+                <fieldset class="grupo-campos">
+                    <legend>Colores</legend>
+                    <div class="grupo-checks">
+                        {% for color in colores %}
+                            <label class="check-item">
+                                <input type="checkbox" name="colores_reporte" value="{{ color }}">
+                                <span>{{ colores_visibles[color] }}</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                </fieldset>
+
+                <div class="grupo-campos">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" name="descripcion" rows="4" placeholder="Describe a la mascota y cualquier detalle útil." required></textarea>
+                </div>
+
+                <div class="grupo-campos">
+                    <label for="foto_mascota">Foto de la mascota</label>
+                    <input id="foto_mascota" name="foto_mascota" type="file" accept=".jpg,.jpeg,.png">
+                    <p class="mensaje-suave">Opcional. Formatos permitidos: JPG, JPEG o PNG.</p>
+                </div>
+
+                <div class="grupo-campos grupo-radio">
+                    <label for="radio_busqueda_metros">Radio de búsqueda</label>
+                    <div class="fila-radio">
+                        <input id="radio_busqueda_metros" name="radio_busqueda_metros" type="range" min="50" max="5000" step="50" value="300">
+                        <strong id="valor-radio" class="chip-radio">300 m</strong>
+                    </div>
+                </div>
+
+                <label class="check-item check-simple">
+                    <input id="ofrece_recompensa" name="ofrece_recompensa" type="checkbox">
+                    <span>Ofrece recompensa</span>
+                </label>
+
+                <button type="submit" class="boton-principal boton-ancho">Publicar reporte</button>
+            </form>
+            <p class="mensaje-suave">Primero haz clic en el mapa para elegir la ubicación.</p>
+            <p id="mensaje-formulario" class="mensaje-suave"></p>
+        </div>
+    </aside>
+
+    <section class="panel-mapa">
+        <div id="mapa"></div>
+    </section>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    window.PETSAFE_CONFIG = {
+        endpointReportes: "{{ url_for('listar_reportes') }}",
+        endpointCrearReporte: "{{ url_for('crear_reporte') }}",
+        usuarioActualId: {{ current_user.id }}
+    };
+</script>
+<script src="{{ url_for('static', filename='js/mapa.js') }}"></script>
+{% endblock %}

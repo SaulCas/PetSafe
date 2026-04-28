@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Conversación | PetSafe{% endblock %}
+
+{% block contenido %}
+<section class="contenedor-simple">
+    <article class="tarjeta-panel tarjeta-contexto">
+        <span class="etiqueta-pantalla">Conversación</span>
+        <h1>Reporte de {{ reporte.nombre_mascota }}</h1>
+        <div class="resumen-conversacion">
+            <p><strong>Publicado por:</strong> {{ reporte.creador.nombre }}</p>
+            <p><strong>Estado:</strong> {{ reporte.estado }}</p>
+            <p><strong>Descripción:</strong> {{ reporte.descripcion }}</p>
+        </div>
+        <a class="boton-secundario" href="{{ url_for('mis_mensajes') }}">Volver a mis mensajes</a>
+    </article>
+
+    <article class="tarjeta-panel">
+        <h2>Mensajes</h2>
+        {% if mensajes %}
+            <div class="lista-mensajes">
+                {% for mensaje in mensajes %}
+                    <div class="burbuja-mensaje {% if mensaje.remitente_id == current_user.id %}mensaje-propio{% endif %}">
+                        <p>{{ mensaje.contenido }}</p>
+                        <span>{{ mensaje.creado_en }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="mensaje-suave">
+                {% if es_dueno %}
+                    Aún no recibes mensajes en este reporte.
+                {% else %}
+                    Todavía no hay mensajes. Puedes escribir el primero.
+                {% endif %}
+            </p>
+        {% endif %}
+    </article>
+
+    <article class="tarjeta-panel">
+        <div class="aviso-seguridad-chat">
+            Por seguridad, la otra persona no puede responder por este chat. Solo puede ver tu mensaje.
+            Si deseas que te contacte, puedes dejar tus datos como tu número de teléfono.
+        </div>
+        <h2>Enviar mensaje</h2>
+        {% if puede_escribir %}
+            <form method="POST" class="formulario-panel">
+                <label for="contenido">Mensaje</label>
+                <textarea id="contenido" name="contenido" rows="4" placeholder="Escribe aquí tu mensaje para el dueño del reporte." required></textarea>
+                <button type="submit" class="boton-principal">Enviar mensaje</button>
+            </form>
+        {% else %}
+            <p class="mensaje-suave">
+                Este reporte es tuyo. Aquí puedes leer los mensajes que te manden otras personas.
+            </p>
+        {% endif %}
+    </article>
+</section>
+{% endblock %}

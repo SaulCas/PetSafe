@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Mis reportes | PetSafe{% endblock %}
+
+{% block contenido %}
+<section class="contenedor-simple">
+    <article class="tarjeta-panel">
+        <span class="etiqueta-pantalla">Seguimiento</span>
+        <h1>Mis reportes</h1>
+        <p class="subtitulo-panel">
+            Aquí puedes revisar el estado de tus reportes, cerrarlos sin borrarlos y reactivarlos cuando sea necesario.
+        </p>
+    </article>
+
+    {% if notificaciones %}
+        <article class="tarjeta-panel">
+            <h2>Notificaciones</h2>
+            <div class="lista-notificaciones">
+                {% for notificacion in notificaciones %}
+                    <div class="aviso-notificacion {% if notificacion.leida %}notificacion-leida{% endif %}">
+                        <strong>{{ notificacion.titulo }}</strong>
+                        <p>{{ notificacion.mensaje }}</p>
+                        {% if notificacion.reporte_id %}
+                            <span>Reporte relacionado: {{ notificacion.reporte_id }}</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </article>
+    {% endif %}
+
+    {% if reportes %}
+        <div class="lista-reportes">
+            {% for reporte in reportes %}
+                <article class="tarjeta-panel tarjeta-reporte">
+                    <div class="encabezado-reporte">
+                        <div>
+                            <h2>{{ reporte.nombre_mascota }}</h2>
+                            <p class="mensaje-suave">Estado actual: <strong>{{ reporte.estado }}</strong></p>
+                        </div>
+                        {% if reporte.foto_mascota %}
+                            <img
+                                class="miniatura-reporte"
+                                src="{{ url_for('static', filename='fotos_mascotas/' ~ reporte.foto_mascota) }}"
+                                alt="Foto de {{ reporte.nombre_mascota }}"
+                            >
+                        {% endif %}
+                    </div>
+
+                    <div class="detalle-reporte">
+                        <p><strong>Edad:</strong> {{ reporte.edad_mascota }}</p>
+                        <p><strong>Tipo:</strong> {{ reporte.otro_tipo_mascota if reporte.tipo_mascota == 'otro' else reporte.tipo_mascota }}</p>
+                        <p><strong>Descripción:</strong> {{ reporte.descripcion }}</p>
+                        <p><strong>Radio:</strong> {{ reporte.radio_busqueda_metros }} m</p>
+                    </div>
+
+                    {% if reporte.motivo_cierre %}
+                        <p><strong>Motivo de cierre:</strong> {{ reporte.motivo_cierre }}</p>
+                    {% endif %}
+
+                    {% if reporte.estado == "activo" and reporte.fecha_limite_respuesta %}
+                        <div class="aviso-seguridad-chat">
+                            Este reporte está por quedar inactivo por falta de actualización. Elige si sigue en búsqueda o si ya fue encontrada.
+                        </div>
+                        <div class="acciones-reporte">
+                            <form method="POST" action="{{ url_for('responder_inactividad', reporte_id=reporte.id) }}">
+                                <input type="hidden" name="accion" value="seguir">
+                                <button type="submit" class="boton-principal">Sigue en búsqueda</button>
+                            </form>
+                            <form method="POST" action="{{ url_for('responder_inactividad', reporte_id=reporte.id) }}">
+                                <input type="hidden" name="accion" value="encontrada">
+                                <button type="submit" class="boton-secundario">Ya fue encontrada</button>
+                            </form>
+                        </div>
+                    {% endif %}
+
+                    {% if reporte.estado == "activo" %}
+                        <form method="POST" action="{{ url_for('cerrar_reporte', reporte_id=reporte.id) }}" class="formulario-panel formulario-cierre">
+                            <label for="motivo-{{ reporte.id }}">Cerrar reporte</label>
+                            <select id="motivo-{{ reporte.id }}" name="motivo" class="selector-cierre" data-reporte-id="{{ reporte.id }}" required>
+                                <option value="">Selecciona una opción</option>
+                                <option value="encontrada">Ya la encontré</option>
+                                <option value="cerrado">No la he encontrado pero ya no deseo mantener el reporte</option>
+                                <option value="otro">Otro</option>
+                            </select>
+
+                            <div id="detalle-otro-{{ reporte.id }}" class="oculto grupo-campos">
+                                <label for="detalle_otro-{{ reporte.id }}">Escribe el motivo</label>
+                                <textarea id="detalle_otro-{{ reporte.id }}" name="detalle_otro" rows="3" placeholder="Escribe aquí el motivo si elegiste 'Otro'."></textarea>
+                            </div>
+
+                            <button type="submit" class="boton-principal">Guardar cambio</button>
+                        </form>
+                    {% elif reporte.estado == "inactivo" %}
+                        <div class="acciones-reporte">
+                            <form method="POST" action="{{ url_for('reactivar_reporte', reporte_id=reporte.id) }}">
+                                <button type="submit" class="boton-principal">Reactivar reporte</button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <p class="mensaje-suave">Este reporte ya no aparece en el mapa porque su estado ya no es activo.</p>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <article class="tarjeta-panel">
+            <p class="mensaje-suave">Todavía no has creado reportes.</p>
+        </article>
+    {% endif %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".selector-cierre").forEach((selector) => {
+            selector.addEventListener("change", () => {
+                const reporteId = selector.dataset.reporteId;
+                const contenedor = document.getElementById(`detalle-otro-${reporteId}`);
+                const campoTexto = document.getElementById(`detalle_otro-${reporteId}`);
+
+                if (selector.value === "otro") {
+                    contenedor.classList.remove("oculto");
+                    campoTexto.required = true;
+                } else {
+                    contenedor.classList.add("oculto");
+                    campoTexto.required = false;
+                    campoTexto.value = "";
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
